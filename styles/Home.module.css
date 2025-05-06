@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+
+.container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  text-align: center;
+}
+
+.heading {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.subhead {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.output {
+  text-align: left;
+  white-space: pre-wrap;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #eee;
+}
+

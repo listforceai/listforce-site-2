@@ -1,0 +1,96 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+  color: white;
+  background: #2b0063;
+  min-height: 100vh;
+  font-family: sans-serif;
+  text-align: center;
+}
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.sub {
+  margin-bottom: 2rem;
+}
+.form {
+  display: flex;
+  gap: 0.5rem;
+}
+.form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+}
+.form button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: #e63946;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.previewWrapper {
+  position: relative;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+.error {
+  color: #f87171;
+  font-weight: bold;
+}
+
+.preview {
+  position: relative;
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 6px;
+  min-height: 8rem;
+  overflow: auto;
+}
+
+/* WATERMARK */
+.preview::before {
+  content: "PREVIEW";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotate(-30deg);
+  font-size: 4rem;
+  color: rgba(255,255,255,0.25);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.preview pre {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.upgrade {
+  margin-top: 1rem;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: #06d6a0;
+  color: #003049;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

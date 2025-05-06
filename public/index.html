@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ListForce AI — Your Real-Estate Assistant for &lt;$1/day</title>
+  <meta name="description" content="Find deals. Make money. Get listings. Great for investors & realtors."/>
+  <!-- Swap in Inter instead of Satoshi -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <main>
+    <h1>Your AI Real-Estate Assistant for &lt;$1/day</h1>
+    <p class="tagline">Find deals. Make money. Get listings. Great for investors. Great for realtors.</p>
+    <p class="hero-trust">Used by thousands of real-estate professionals nationwide</p>
+
+    <form id="magic-form">
+      <input id="prompt-input"
+             type="text"
+             placeholder="e.g. Comp 123 Lake Sherwood Dr"
+             required/>
+      <button id="generate-btn" type="submit">Generate Magic</button>
+    </form>
+
+    <div id="examples">
+      <em>Try:</em>
+      <ul>
+        <li>Comp this property at 123 Main St.</li>
+        <li>Make me a listing presentation for 456 Oak Ave.</li>
+        <li>Find undervalued properties in ZIP 90210.</li>
+      </ul>
+    </div>
+
+    <div id="result-container">
+      <pre id="result-output"></pre>
+    </div>
+  </main>
+
+  <script src="/main.js"></script>
+</body>
+</html>
