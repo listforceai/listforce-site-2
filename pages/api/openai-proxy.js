@@ -1,35 +1,26 @@
-// pages/api/openai-proxy.js
-import OpenAI from "openai";
+import OpenAI from 'openai'
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+})
 
 export default async function handler(req, res) {
-  // Only allow POST
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const key = process.env.OPENAI_API_KEY;
-  if (!key) {
-    return res.status(500).json({ error: "Missing OPENAI_API_KEY" });
-  }
-
-  // v4 constructor takes { apiKey }
-  const openai = new OpenAI({ apiKey: key });
+  const { prompt } = req.body
 
   try {
-    // Use the chat completions endpoint
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user",  content: req.body.prompt },
-      ],
-      max_tokens: 150,
-    });
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }]
+    })
 
-    // Return the assistant’s reply
-    return res.status(200).json({ text: response.choices[0].message.content });
-  } catch (err) {
-    console.error("OpenAI error:", err);
-    return res.status(500).json({ error: err.message || "OpenAI request failed" });
+    res.status(200).json({ text: completion.choices[0].message.content })
+  } catch (error) {
+    console.error('OpenAI error:', error)
+    res.status(500).json({ error: error.message })
   }
 }
+

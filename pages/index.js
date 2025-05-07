@@ -1,49 +1,47 @@
-import { useState } from 'react';
-import styles from '../styles/Home.module.css';
+import { useState } from 'react'
 
 export default function Home() {
-  const [prompt, setPrompt] = useState('');
-  const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [prompt, setPrompt] = useState('')
+  const [result, setResult] = useState('')
 
   async function handleGenerate() {
-    if (!prompt) return;
-    setLoading(true);
-    setResult('');
-    try {
-      const res = await fetch('/api/openai-proxy', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
-      });
-      const data = await res.json();
-      setResult(data.text || 'No response');
-    } catch (err) {
-      console.error(err);
-      setResult('Error: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
+    const res = await fetch('/api/openai-proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    })
+    const { text } = await res.json()
+    setResult(text)
   }
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.heading}>ListForce AI</h1>
-      <p className={styles.subhead}>Your Real-Estate Assistant (&lt;$1/day)</p>
-      <div className={styles.form}>
-        <input
-          type="text"
-          placeholder="Enter a prompt…"
-          value={prompt}
-          onChange={e => setPrompt(e.target.value)}
-          className={styles.input}
-        />
-        <button onClick={handleGenerate} className={styles.button} disabled={loading}>
-          {loading ? 'Generating…' : 'Generate Magic'}
-        </button>
-      </div>
-      {result && <pre className={styles.output}>{result}</pre>}
-    </div>
-  );
+    <main style={{ fontFamily: 'system-ui, -apple-system', padding: 20 }}>
+      <h1>ListForce.ai</h1>
+      <textarea
+        rows={4}
+        value={prompt}
+        onChange={e => setPrompt(e.target.value)}
+        placeholder="Ask your question…"
+        style={{ width: '100%', marginBottom: 10 }}
+      />
+      <button onClick={handleGenerate}>Generate Magic</button>
+
+      {result && (
+        <div style={{ position: 'relative', marginTop: 20 }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%', height: '100%',
+            pointerEvents: 'none',
+            background: 'url("/watermark.png") center/cover',
+            opacity: 0.2
+          }} />
+          <pre style={{ filter: 'blur(2px)', padding: 20 }}>{result}</pre>
+          <a href="/api/create-checkout">
+            <button>Upgrade for Full Access</button>
+          </a>
+        </div>
+      )}
+    </main>
+  )
 }
 
