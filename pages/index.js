@@ -3,7 +3,18 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  let sessionData = {};
+  let sessionStatus = 'unauthenticated';
+
+  try {
+    const useSessionHook = require('next-auth/react').useSession;
+    const { data, status } = useSessionHook() || {};
+    sessionData = data;
+    sessionStatus = status;
+  } catch (error) {
+    console.warn('NextAuth is not installed or useSession failed:', error);
+  }
+
   const [ask, setAsk] = useState('');
   const [response, setResponse] = useState('');
 
@@ -34,11 +45,11 @@ export default function Home() {
             Automate your listing presentations, buyer reports, and marketing — instantly powered by AI.
           </p>
 
-          {status === 'loading' ? (
+          {sessionStatus === 'loading' ? (
             <p>Loading session...</p>
-          ) : session ? (
+          ) : sessionData ? (
             <>
-              <p className="mb-4">Welcome, {session.user?.name || 'Agent'}!</p>
+              <p className="mb-4">Welcome, {sessionData.user?.name || 'Agent'}!</p>
               <button
                 onClick={() => signOut()}
                 className="mb-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -150,5 +161,6 @@ export default function Home() {
     </>
   );
 }
+
 
 
