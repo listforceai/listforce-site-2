@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 export default function Home() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [ask, setAsk] = useState('');
   const [response, setResponse] = useState('');
 
@@ -33,6 +33,31 @@ export default function Home() {
           <p className="text-xl text-gray-600 mb-8">
             Automate your listing presentations, buyer reports, and marketing — instantly powered by AI.
           </p>
+
+          {status === 'loading' ? (
+            <p>Loading session...</p>
+          ) : session ? (
+            <>
+              <p className="mb-4">Welcome, {session.user?.name || 'Agent'}!</p>
+              <button
+                onClick={() => signOut()}
+                className="mb-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="mb-4">You’re not signed in.</p>
+              <button
+                onClick={() => signIn()}
+                className="mb-6 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+              >
+                Sign In
+              </button>
+            </>
+          )}
+
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto flex shadow rounded overflow-hidden">
             <input
               value={ask}
@@ -125,4 +150,5 @@ export default function Home() {
     </>
   );
 }
+
 
